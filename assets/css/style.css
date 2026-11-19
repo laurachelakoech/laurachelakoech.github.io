@@ -257,6 +257,15 @@ ul {
 #contact li {
     padding: 6px 0;
 }
+#contact {
+    position: relative;
+}
+#cat {
+    position: absolute;
+    right: 25px;
+    bottom: -52px;
+    width: 160px;
+}
 
 /* Project page */
 #project {
@@ -356,7 +365,7 @@ ul {
 .site-footer {
     background-color: var(--bg-secondary);
     text-align: center;
-    padding: 12px 24px;
+    padding: 24px 24px;
     color: var(--muted);
     font-size: 0.875rem;
     border-top: 1px solid var(--line);
@@ -381,6 +390,6 @@ ul {
     }
     .section,
     #work {
-        padding: 48px 0;
+        padding: 48px 12px;
     }
 }
