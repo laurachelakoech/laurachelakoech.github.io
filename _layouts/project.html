@@ -5,6 +5,11 @@ layout: default
 <article id="project">
   <a class="back-link" href="{{ '/#work' | relative_url }}"><i class="fa fa-angle-left"></i> All projects</a>
 
+  {% if page.cover %}
+  <img class="project-cover" src="{{ dir | append: page.cover | relative_url }}" alt="{{ page.cover_alt | default: page.title }}" />
+  {% endif %}
+
+  <header class="project-header">
   {% if page.tags %}
   <ul class="tags">
     {% for tag in page.tags %}<li>{{ tag }}</li>{% endfor %}
@@ -21,10 +26,7 @@ layout: default
     {% if page.link %}<div><dt>Link</dt><dd><a href="{{ page.link }}" target="_blank" rel="noopener">{{ page.link_text | default: 'Visit project' }}</a></dd></div>{% endif %}
   </dl>
   {% endif %}
-
-  {% if page.cover %}
-  <img class="project-cover" src="{{ dir | append: page.cover | relative_url }}" alt="{{ page.cover_alt | default: page.title }}" />
-  {% endif %}
+  </header>
 
   <div class="project-body">
     {{ content }}

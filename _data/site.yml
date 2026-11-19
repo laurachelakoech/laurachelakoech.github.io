@@ -3,29 +3,29 @@
 # - SEO & social sharing
 seo:
   url: "https://example.com"
-  title: "Your Name - Title / Role"
+  title: "Chela Koech - Title / Role"
   description: "Short description of who you are and what you do."
   language: "en"
   locale: "en_GB"
   image: "/assets/images/og-image.png"  # Preview image when shared on social media (1200x630 recommended)
-  image_alt: "Your Name - Title / Role"
+  image_alt: "Chela Koech - Title / Role"
   theme_color: "#111111"                # Browser toolbar colour on mobile
   favicon: ""                           # e.g. "/assets/images/favicon.png" (optional)
   noindex: false
 
 # - Identity
-name: "Your Name"
+name: "Chela Koech"
 role: "Title / Role"
-location: "City, Country"
+location: "Raleigh, NC"
 
 # - Hero
 hero:
   greeting: "Hi, I'm"
-  headshot: "/assets/images/headshot.svg"
-  headshot_alt: "Portrait of Your Name"
+  headshot: "/assets/images/headshot.jpg"
+  headshot_alt: "Portrait of Chela Koech"
   description: "One or two sentences introducing yourself."
-  resume_file: ""
-  resume_text: "Download my resume"
+  resume_file: "/assets/your-resume-here.pdf"
+  resume_text: "Resume"
 
 # - Projects section heading
 projects_heading: "Selected Work"
@@ -60,4 +60,4 @@ contact:
       url: "https://github.com/username"
 
 # - Footer
-footer_text: "© Your Name"
+footer_text: "© Laura Chela Koech"

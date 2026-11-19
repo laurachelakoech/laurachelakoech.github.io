@@ -2,14 +2,14 @@
 # - Project details
 title: Example Project
 summary: One-sentence summary shown on the home page card and used for search engines.
-tags: [Design, Development]
+tags: [Engineering, Design]
 cover: cover.svg
 cover_alt: Describe the cover image for screen readers
 
 # - Optional details (any can be removed)
 order: 1
-client: Client name
-role: Lead designer
+client:
+role: Lead engineer
 year: 2026
 link: https://example.com
 link_text: Visit the live site
