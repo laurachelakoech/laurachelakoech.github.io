@@ -1,0 +1,103 @@
+{%- comment -%}
+  All <head> / SEO output. Site-wide values come from _data/site.yml,
+  per-project overrides come from the project's front matter.
+{%- endcomment -%}
+{%- assign s = site.data.site -%}
+{%- assign seo = s.seo -%}
+{%- assign base = seo.url | append: site.baseurl -%}
+{%- assign page_dir = page.url | replace: 'index.html', '' -%}
+{%- assign canonical = base | append: page_dir -%}
+{%- assign is_project = false -%}
+{%- if page.layout == 'project' %}{% assign is_project = true %}{% endif -%}
+
+{%- if is_project -%}
+  {%- assign page_title = page.seo_title | default: page.title | append: ' | ' | append: s.name -%}
+  {%- assign page_desc = page.seo_description | default: page.summary -%}
+  {%- assign img = page.seo_image | default: page.cover -%}
+  {%- if img contains '://' -%}
+    {%- assign og_image = img -%}
+  {%- elsif img.size > 0 -%}
+    {%- assign og_image = base | append: page_dir | append: img -%}
+  {%- endif -%}
+  {%- assign og_image_alt = page.cover_alt | default: page.title -%}
+  {%- assign og_type = 'article' -%}
+{%- else -%}
+  {%- assign page_title = page.seo_title | default: seo.title -%}
+  {%- assign page_desc = page.seo_description | default: seo.description -%}
+  {%- if seo.image.size > 0 -%}
+    {%- assign og_image = base | append: seo.image -%}
+  {%- endif -%}
+  {%- assign og_image_alt = seo.image_alt -%}
+  {%- assign og_type = 'website' -%}
+{%- endif -%}
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{{ page_title | escape }}</title>
+<meta name="description" content="{{ page_desc | strip_html | normalize_whitespace | escape }}" />
+<link rel="canonical" href="{{ canonical }}" />
+{% if seo.noindex or page.noindex %}<meta name="robots" content="noindex, nofollow" />
+{% endif -%}
+{% if seo.theme_color.size > 0 %}<meta name="theme-color" content="{{ seo.theme_color }}" />
+{% endif -%}
+{% if seo.favicon.size > 0 %}<link rel="icon" href="{{ seo.favicon | relative_url }}" />
+{% endif -%}
+
+<meta property="og:title" content="{{ page_title | escape }}" />
+<meta property="og:description" content="{{ page_desc | strip_html | normalize_whitespace | escape }}" />
+<meta property="og:url" content="{{ canonical }}" />
+<meta property="og:type" content="{{ og_type }}" />
+<meta property="og:site_name" content="{{ s.name | escape }}" />
+{% if seo.locale.size > 0 %}<meta property="og:locale" content="{{ seo.locale }}" />
+{% endif -%}
+{% if og_image.size > 0 -%}
+<meta property="og:image" content="{{ og_image }}" />
+<meta property="og:image:alt" content="{{ og_image_alt | escape }}" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="{{ og_image }}" />
+{% else -%}
+<meta name="twitter:card" content="summary" />
+{% endif -%}
+<meta name="twitter:title" content="{{ page_title | escape }}" />
+<meta name="twitter:description" content="{{ page_desc | strip_html | normalize_whitespace | escape }}" />
+{% if seo.twitter_handle.size > 0 %}<meta name="twitter:site" content="{{ seo.twitter_handle }}" />
+{% endif %}
+
+{%- if is_project %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": {{ page.title | jsonify }},
+  "description": {{ page_desc | strip_html | normalize_whitespace | jsonify }},
+  "url": {{ canonical | jsonify }},
+  {%- if og_image.size > 0 %}
+  "image": {{ og_image | jsonify }},
+  {%- endif %}
+  {%- if page.tags %}
+  "keywords": {{ page.tags | join: ', ' | jsonify }},
+  {%- endif %}
+  "author": { "@id": {{ base | append: '/#person' | jsonify }} }
+}
+</script>
+{%- else %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": {{ base | append: '/#person' | jsonify }},
+  "name": {{ s.name | jsonify }},
+  "url": {{ base | append: '/' | jsonify }},
+  "jobTitle": {{ s.role | jsonify }},
+  "description": {{ seo.description | jsonify }},
+  "sameAs": [{% for l in s.contact.links %}{{ l.url | jsonify }}{% unless forloop.last %}, {% endunless %}{% endfor %}]
+}
+</script>
+{%- endif %}
+
+<link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&family=Archivo:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+  rel="stylesheet"
+/>

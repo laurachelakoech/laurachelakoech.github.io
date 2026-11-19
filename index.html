@@ -1,0 +1,82 @@
+---
+layout: default
+---
+{%- assign s = site.data.site -%}
+<!-- Hero -->
+<div id="hero" class="section">
+  <div id="hero-content">
+    {% if s.hero.headshot.size > 0 %}
+    <img id="hero-image" src="{{ s.hero.headshot | relative_url }}" alt="{{ s.hero.headshot_alt }}" />
+    {% endif %}
+    <div id="hero-title">
+      {% if s.hero.greeting.size > 0 %}<h3>{{ s.hero.greeting }}</h3>{% endif %}
+      <h1>{{ s.name }}.</h1>
+      <h2>{{ s.role | upcase }}</h2>
+      {% if s.location.size > 0 %}<h4>{{ s.location }}</h4>{% endif %}
+      {% if s.hero.description.size > 0 %}
+      <div id="hero-description"><p>{{ s.hero.description }}</p></div>
+      {% endif %}
+    </div>
+  </div>
+  {% if s.hero.resume_file.size > 0 %}
+  <div id="resume-button">
+    <a class="resume-download" href="{{ s.hero.resume_file | relative_url }}" download>{{ s.hero.resume_text | default: 'Download my resume' }}</a>
+  </div>
+  {% endif %}
+</div>
+<hr />
+
+<!-- Projects -->
+<div id="work">
+  <h1>{{ s.projects_heading | default: 'Projects' }}</h1>
+  {% assign projects = site.projects | sort: 'order' %}
+  {% for project in projects %}
+    {%- assign dir = project.url | replace: 'index.html', '' -%}
+    <a class="project-card" href="{{ dir | relative_url }}">
+      {% if project.cover %}
+      <div class="cover-div">
+        <img src="{{ dir | append: project.cover | relative_url }}" alt="{{ project.cover_alt | default: project.title }}" loading="lazy" />
+      </div>
+      {% endif %}
+      <div class="text-container">
+        {% if project.tags %}
+        <ul class="tags">{% for tag in project.tags %}<li>{{ tag }}</li>{% endfor %}</ul>
+        {% endif %}
+        <h1>{{ project.title }}</h1>
+        <h3>{{ project.summary }}</h3>
+      </div>
+    </a>
+  {% endfor %}
+</div>
+<hr />
+
+<!-- About -->
+{% if s.about.text.size > 0 %}
+<div id="about" class="section">
+  <div id="text-container">
+    <h1>{{ s.about.heading }}</h1>
+    {{ s.about.text | markdownify }}
+  </div>
+  {% if s.about.skills.size > 0 %}
+  <div id="skills-container">
+    <ul class="skills">
+      {% for skill in s.about.skills %}<li><i class="fa fa-{{ skill.icon }}"></i>{{ skill.label }}</li>{% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+</div>
+<hr />
+{% endif %}
+
+<!-- Contact -->
+<div id="contact" class="section">
+  <h1>{{ s.contact.heading }}</h1>
+  <ul>
+    {% if s.contact.email.size > 0 %}
+    <li><i class="fa fa-envelope"></i><a href="mailto:{{ s.contact.email }}">{{ s.contact.email }}</a></li>
+    {% endif %}
+    {% for l in s.contact.links %}
+    <li><i class="fa fa-{{ l.icon }}"></i><a href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }}</a></li>
+    {% endfor %}
+  </ul>
+</div>

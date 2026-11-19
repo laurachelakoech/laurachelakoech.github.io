@@ -1,0 +1,32 @@
+---
+layout: default
+---
+{%- assign dir = page.url | replace: 'index.html', '' -%}
+<article id="project">
+  <a class="back-link" href="{{ '/#work' | relative_url }}"><i class="fa fa-angle-left"></i> All projects</a>
+
+  {% if page.tags %}
+  <ul class="tags">
+    {% for tag in page.tags %}<li>{{ tag }}</li>{% endfor %}
+  </ul>
+  {% endif %}
+  <h1>{{ page.title }}</h1>
+  {% if page.summary %}<p class="project-summary">{{ page.summary }}</p>{% endif %}
+
+  {% if page.role or page.year or page.client or page.link %}
+  <dl class="project-meta">
+    {% if page.client %}<div><dt>Client</dt><dd>{{ page.client }}</dd></div>{% endif %}
+    {% if page.role %}<div><dt>Role</dt><dd>{{ page.role }}</dd></div>{% endif %}
+    {% if page.year %}<div><dt>Year</dt><dd>{{ page.year }}</dd></div>{% endif %}
+    {% if page.link %}<div><dt>Link</dt><dd><a href="{{ page.link }}" target="_blank" rel="noopener">{{ page.link_text | default: 'Visit project' }}</a></dd></div>{% endif %}
+  </dl>
+  {% endif %}
+
+  {% if page.cover %}
+  <img class="project-cover" src="{{ dir | append: page.cover | relative_url }}" alt="{{ page.cover_alt | default: page.title }}" />
+  {% endif %}
+
+  <div class="project-body">
+    {{ content }}
+  </div>
+</article>
