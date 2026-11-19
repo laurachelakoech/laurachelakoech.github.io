@@ -1,0 +1,24 @@
+
+baseurl: "" # Leave empty unless the site lives in a sub-path
+
+collections:
+  projects:
+    output: true
+
+defaults:
+  - scope:
+      path: ""
+      type: projects
+    values:
+      layout: project
+      order: 100
+
+exclude:
+  - README.md
+  - LICENSE
+  - Gemfile
+  - Gemfile.lock
+  - _templates
+  - vendor
+
+markdown: kramdown

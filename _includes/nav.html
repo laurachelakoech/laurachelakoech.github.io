@@ -1,0 +1,8 @@
+<nav class="nav-bar">
+  <a class="nav-name" href="{{ '/' | relative_url }}">{{ site.data.site.name }}</a>
+  <ul class="nav-links">
+    <li><a href="{{ '/#work' | relative_url }}">Work</a></li>
+    {% if site.data.site.about.text.size > 0 %}<li><a href="{{ '/#about' | relative_url }}">About</a></li>{% endif %}
+    <li><a href="{{ '/#contact' | relative_url }}">Contact</a></li>
+  </ul>
+</nav>

@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="{{ site.data.site.seo.language | default: 'en' }}">
+  <head>
+    {% include head.html %}
+  </head>
+  <body>
+    {% include nav.html %}
+    <main>
+      {{ content }}
+    </main>
+    {% if site.data.site.footer_text.size > 0 %}
+    <footer class="site-footer">{{ site.data.site.footer_text }}</footer>
+    {% endif %}
+  </body>
+</html>
